@@ -37,6 +37,9 @@ RUN apt update \
        gnupg2 \
     && rm -rf /var/lib/apt/lists/*
 
+# Drkaround for https://github.com/f-secure-foundry/usbarmory-debian-base_image/issues/9
+RUN mkdir ~/.gnupg; echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf
+
 # Install + verify RVM with gpg (https://rvm.io/rvm/security)
 RUN gpg2 --quiet --no-tty --logger-fd 1 --keyserver hkp://keys.gnupg.net \
          --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 \
